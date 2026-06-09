@@ -1,0 +1,14 @@
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/bin/Debug/net10.0/Fantasy1998
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/bin/Debug/net10.0/Fantasy1998.deps.json
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/bin/Debug/net10.0/Fantasy1998.runtimeconfig.json
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/bin/Debug/net10.0/Fantasy1998.dll
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/bin/Debug/net10.0/Fantasy1998.pdb
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/Fantasy1998.GeneratedMSBuildEditorConfig.editorconfig
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/Fantasy1998.AssemblyInfoInputs.cache
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/Fantasy1998.AssemblyInfo.cs
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/Fantasy1998.csproj.CoreCompileInputs.cache
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/Fantasy1998.dll
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/refint/Fantasy1998.dll
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/Fantasy1998.pdb
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/Fantasy1998.genruntimeconfig.cache
+/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/Debug/net10.0/ref/Fantasy1998.dll

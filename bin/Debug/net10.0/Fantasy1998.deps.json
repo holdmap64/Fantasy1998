@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Fantasy1998/1.0.0": {
+        "runtime": {
+          "Fantasy1998.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Fantasy1998/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
