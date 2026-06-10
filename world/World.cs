@@ -1,9 +1,18 @@
+using System.Runtime.InteropServices;
+
 public sealed class World
 {
     public string?[,] Grid { get; set; }
     public Player Player { get; set; }
-    private Dictionary<(int row, int col), Character> _characters = new();
-    private Dictionary<(int row, int col), Structure> _buildings = new();
+    public readonly HashSet<string> characters = new HashSet<string>
+    {
+        "a",
+        "e"
+    };
+    public readonly HashSet<string> buildings = new HashSet<string>
+    {
+        "c"
+    };
     public World(Player player, int rows, int cols)
     {
         Player = player;
@@ -12,18 +21,16 @@ public sealed class World
         _validateOccupancy((player.Row, player.Col));
         Grid[player.Row, player.Col] = player.ToString();
     }
-    public void AddObject((int row, int col) pos, Character obj)
-    {
-        _validatePosition(pos);
-        _validateOccupancy(pos);
-        _characters.Add(pos, obj);
-        Grid[pos.row, pos.col] = obj.ToString();
-    }
     public void AddObject((int row, int col) pos, Structure obj)
     {
         _validatePosition(pos);
         _validateOccupancy(pos);
-        _buildings.Add(pos, obj);
+        Grid[pos.row, pos.col] = obj.ToString();
+    }
+    public void AddObject((int row, int col) pos, Character obj)
+    {
+        _validatePosition(pos);
+        _validateOccupancy(pos);
         Grid[pos.row, pos.col] = obj.ToString();
     }
     public void MovePlayer((int row, int col) newPos)
@@ -46,6 +53,16 @@ public sealed class World
     }
     private void _validateOccupancy((int row, int col) pos)
     {
+        if (_isBusy(pos))
+        {
+            if(characters.Contains(Grid[pos.row, pos.col]))
+            {
+                throw new WorldException($"Apareceu uma personagem {Grid[pos.row, pos.col]}");
+            } else
+            {
+                throw new WorldException($"Apareceu uma estrutura {Grid[pos.row, pos.col]}");
+            }
+        }   
         if (_isBusy(pos))
         {
             Console.Clear();
