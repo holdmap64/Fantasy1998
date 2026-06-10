@@ -1,5 +1,8 @@
-public class Enemies : Character{
-    public Enemies(string name) : base(name){
+public class Enemies : Character, IConcreteObject {
+    public (int row, int col) CurrentPos { get; set; }
+    public Enemies(char charId, (int row, int col) currentPos) : base(charId)
+    {
+        CurrentPos = currentPos;
     }
     public override bool Equals(object? obj)
     {
@@ -8,14 +11,14 @@ public class Enemies : Character{
             return false;
         }
         Enemies other = (Enemies)obj;
-        return Name == other.Name;
+        return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
     }
     public override int GetHashCode()
     {
-        return Name.GetHashCode();
+        return HashCode.Combine(CurrentPos.row, CurrentPos.col);
     }
-    public override string ToString() {
-        return "e";
+    public string TurnLetter()
+    {
+        return CharId.ToString();
     }
-    
 }

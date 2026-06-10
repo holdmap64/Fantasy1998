@@ -1,5 +1,8 @@
-public class Church : Structure {
-    public Church(string name) : base(name){
+public class Church : Structure, IConcreteObject {
+    public (int row, int col) CurrentPos { get; set; }
+    public Church(char charId, (int row, int col) currentPos) : base(charId)
+    {
+        CurrentPos = currentPos;
     }
     public override bool Equals(object? obj)
     {
@@ -8,13 +11,14 @@ public class Church : Structure {
             return false;
         }
         Church other = (Church)obj;
-        return Name == other.Name;
+        return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
     }
     public override int GetHashCode()
     {
-        return Name.GetHashCode();
+        return HashCode.Combine(CurrentPos.row, CurrentPos.col);
     }
-    public override string ToString() {
-        return "c";
+    public string TurnLetter()
+    {
+        return CharId.ToString();
     }
 }

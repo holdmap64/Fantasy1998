@@ -1,15 +1,34 @@
-public class Player
+public class Player : IConcreteObject
 {
-    private (int row, int col) _currentPos;
-    public int Row => _currentPos.row;
-    public int Col => _currentPos.col;
+    public Dictionary<string, World> maps { get; private set; } = new();
+    public (int row, int col) CurrentPos { get; set; }
     public Player(int row, int col)
     {
-        _currentPos = (row, col);
+        CurrentPos = (row, col);
     }
-    public void MoveTo((int row, int col) newPos)
+    public void MovePlayer(ref (int row, int col) newPos, string nameMap)
     {
-        _currentPos = newPos;
+        if(maps[nameMap].Grid[newPos.row, newPos.col] != null)
+        {
+            
+        } else
+        {
+            maps[nameMap].Grid[CurrentPos.row, CurrentPos.col] = null;
+            CurrentPos = newPos;
+            maps[nameMap].Grid[CurrentPos.row, CurrentPos.col] = this.TurnLetter();
+            maps[nameMap].RenderMap();
+        }
     }
-    public override string ToString() => "p";
+    public void AddMap(string nameMap, World makeMap)
+    {
+        maps.Add(nameMap, makeMap);
+    }
+    private void _talkWith(string nameMap, IConcreteObject objChar)
+    {
+        
+    }
+    public string TurnLetter()
+    {
+        return "p";
+    }
 }

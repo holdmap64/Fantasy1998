@@ -1,6 +1,6 @@
 public abstract class Structure {
-    public string Name { get; set; }
-    public Structure(string name){
-        Name = name;
+    protected char CharId { get; set; }
+    public Structure(char charId){
+        CharId = charId;
     }
 }

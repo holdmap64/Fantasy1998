@@ -1,5 +1,8 @@
-public class Allies : Character{
-    public Allies(string name) : base(name){
+public class Allies : Character, IConcreteObject {
+    public (int row, int col) CurrentPos { get; set; }
+    public Allies(char charId, (int row, int col) currentPos) : base(charId)
+    {
+        CurrentPos = currentPos;
     }
     public override bool Equals(object? obj)
     {
@@ -8,14 +11,14 @@ public class Allies : Character{
             return false;
         }
         Allies other = (Allies)obj;
-        return Name == other.Name;
+        return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
     }
     public override int GetHashCode()
     {
-        return Name.GetHashCode();
+        return HashCode.Combine(CurrentPos.row, CurrentPos.col);
     }
-    public override string ToString() {
-        return "a";
+    public string TurnLetter()
+    {
+        return CharId.ToString();
     }
-    
 }

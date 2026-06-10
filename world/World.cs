@@ -1,81 +1,17 @@
-using System.Runtime.InteropServices;
-
-public sealed class World
+public class World
 {
     public string?[,] Grid { get; set; }
-    public Player Player { get; set; }
-    public readonly HashSet<string> characters = new HashSet<string>
-    {
-        "a",
-        "e"
-    };
-    public readonly HashSet<string> buildings = new HashSet<string>
-    {
-        "c"
-    };
+    public Player player { get; set; }
     public World(Player player, int rows, int cols)
     {
-        Player = player;
+        this.player = player;
         Grid = new string[rows, cols];
-        _validatePosition((player.Row, player.Col));
-        _validateOccupancy((player.Row, player.Col));
-        Grid[player.Row, player.Col] = player.ToString();
+        _spawnPlayer();
     }
-    public void AddObject((int row, int col) pos, Structure obj)
+    public void AddObject(IConcreteObject obj)
     {
-        _validatePosition(pos);
-        _validateOccupancy(pos);
-        Grid[pos.row, pos.col] = obj.ToString();
-    }
-    public void AddObject((int row, int col) pos, Character obj)
-    {
-        _validatePosition(pos);
-        _validateOccupancy(pos);
-        Grid[pos.row, pos.col] = obj.ToString();
-    }
-    public void MovePlayer((int row, int col) newPos)
-    {
-        _validatePosition(newPos);
-        _validateOccupancy(newPos);
-        Grid[Player.Row, Player.Col] = null;
-        Player.MoveTo(newPos);
-        Grid[Player.Row, Player.Col] = Player.ToString();
-        RenderMap();
-    }
-    private void _validatePosition((int row, int col) pos)
-    {
-        if (pos.row >= Grid.GetLength(0) || pos.row < 0 ||
-            pos.col >= Grid.GetLength(1) || pos.col < 0)
-        {
-            Console.Clear();
-            throw new WorldException("Position is out of world bounds!");
-        }
-    }
-    private void _validateOccupancy((int row, int col) pos)
-    {
-        if (_isBusy(pos))
-        {
-            if(characters.Contains(Grid[pos.row, pos.col]))
-            {
-                throw new WorldException($"Apareceu uma personagem {Grid[pos.row, pos.col]}");
-            } else
-            {
-                throw new WorldException($"Apareceu uma estrutura {Grid[pos.row, pos.col]}");
-            }
-        }   
-        if (_isBusy(pos))
-        {
-            Console.Clear();
-            throw new WorldException("Position is already occupied!");
-        }
-    }
-    private bool _isBusy((int row, int col) pos)
-    {
-        if (Grid[pos.row, pos.col] != null)
-        {
-            return true;
-        }
-        return false;
+        LaunchPositionError(obj);
+        Grid[obj.CurrentPos.row, obj.CurrentPos.col] = obj.TurnLetter();
     }
     public void RenderMap()
     {
@@ -104,5 +40,43 @@ public sealed class World
             }
             Console.WriteLine();
         }
+    }
+    private bool _outPosition((int row, int col) pos)
+    {
+        if (pos.row >= Grid.GetLength(0) || pos.row < 0 ||
+            pos.col >= Grid.GetLength(1) || pos.col < 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    private bool _isBusy((int row, int col) pos)
+    {
+        if (!(Grid[pos.row, pos.col] == null))
+        {
+            return true;
+        }
+        return false;
+    }
+    public void LaunchPositionError(IConcreteObject obj)
+    {
+        if(!(obj is Player))
+        {
+            if(_outPosition(obj.CurrentPos))
+            {
+                throw new WorldException("Error in World.cs! Off the Grid");
+            } else
+            {
+                if(_isBusy(obj.CurrentPos))
+                {
+                    throw new WorldException("Error in World.cs! Structures and Objects cannot be in the same location.");
+                }
+            }   
+        }
+    }
+    private void _spawnPlayer()
+    {
+        LaunchPositionError(player);
+        Grid[player.CurrentPos.row, player.CurrentPos.col] = player.TurnLetter();
     }
 }
