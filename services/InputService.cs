@@ -1,32 +1,17 @@
-using System.Runtime.InteropServices.Marshalling;
-using System.Text;
-
 public abstract class InputService
 {
-    protected ConsoleKeyInfo _input { get; set; }
-    protected bool _gameLoop { get; set; } 
-    protected Player _player { get; set; }
+    protected ConsoleKey StoreKey { get; set; }
+    protected Player Player { get; set; }
+    protected bool GameLoop { get; set; } 
     public InputService(Player player)
     {
-        this._player = player;
-        _gameLoop = true;
+        Player = player;
+        GameLoop = true;
     }
-    public abstract void GameplayState(string nameMap);
-    protected void HasMap(string nameMap)
+    public abstract void GameState(string nameMap);
+    public ConsoleKey Input()
     {
-        if(!(_player.maps.ContainsKey(nameMap)))
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"O mapa ={nameMap}= não existe!");
-            sb.AppendLine("----São esses mapas que existem--------------------");
-            sb.AppendLine();
-            foreach(var obj in _player.maps)
-            {
-                sb.AppendLine($" - {obj.Key}: {obj.Value}");
-            }
-            sb.AppendLine();
-            sb.AppendLine("---------------------------------------------------");
-            throw new WorldException(sb.ToString());
-        }
+        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+        return keyInfo.Key;
     }
 }

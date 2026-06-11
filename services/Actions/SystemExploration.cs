@@ -1,37 +1,36 @@
-public class Movement : InputService
+public class SystemExploration : InputService
 {
     private (int row, int col) _pos;
-    public Movement(Player player) : base(player)
+    public SystemExploration(Player player) : base(player)
     {
         _pos = player.CurrentPos;
     }
-    public override void GameplayState(string nameMap)
+    public override void GameState(string nameMap)
     {
-        HasMap(nameMap);
-        while(_gameLoop)
+        while(GameLoop)
         {
-            _player.maps[nameMap].RenderMap();
-            _input = Console.ReadKey(true);
-            switch(_input.Key)
+            Player.Maps[nameMap].RenderMap();
+            StoreKey = Input();
+            switch(StoreKey)
             {
                 case ConsoleKey.LeftArrow:
                     _pos.col--;
-                    _player.MovePlayer(ref _pos, nameMap);
+                    Player.MovePlayer(ref _pos, nameMap);
                     break;
                 case ConsoleKey.RightArrow:
                     _pos.col++;
-                    _player.MovePlayer(ref _pos, nameMap);
+                    Player.MovePlayer(ref _pos, nameMap);
                     break;
                 case ConsoleKey.UpArrow:
                     _pos.row--;
-                    _player.MovePlayer(ref _pos, nameMap);
+                    Player.MovePlayer(ref _pos, nameMap);
                     break;
                 case ConsoleKey.DownArrow:
                     _pos.row++;
-                    _player.MovePlayer(ref _pos, nameMap);
+                    Player.MovePlayer(ref _pos, nameMap);
                     break;
                 case ConsoleKey.Q:
-                    _gameLoop = false;
+                    GameLoop = false;
                     break;
             }
         }

@@ -1,16 +1,16 @@
-public class Enemies : Character, IConcreteObject {
+public class Allies : Character, IObjGame {
     public (int row, int col) CurrentPos { get; set; }
-    public Enemies(char charId, (int row, int col) currentPos) : base(charId)
+    public Allies(char charId, (int row, int col) currentPos) : base(charId)
     {
         CurrentPos = currentPos;
     }
     public override bool Equals(object? obj)
     {
-        if(!(obj is Enemies))
+        if(!(obj is Allies))
         {
             return false;
         }
-        Enemies other = (Enemies)obj;
+        Allies other = (Allies)obj;
         return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
     }
     public override int GetHashCode()

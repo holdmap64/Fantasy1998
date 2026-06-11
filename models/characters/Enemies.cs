@@ -1,16 +1,16 @@
-public class Church : Structure, IConcreteObject {
+public class Enemies : Character, IObjGame {
     public (int row, int col) CurrentPos { get; set; }
-    public Church(char charId, (int row, int col) currentPos) : base(charId)
+    public Enemies(char charId, (int row, int col) currentPos) : base(charId)
     {
         CurrentPos = currentPos;
     }
     public override bool Equals(object? obj)
     {
-        if(!(obj is Church))
+        if(!(obj is Enemies))
         {
             return false;
         }
-        Church other = (Church)obj;
+        Enemies other = (Enemies)obj;
         return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
     }
     public override int GetHashCode()
