@@ -1,8 +1,12 @@
-public class Church : Structure, IObjGame {
-    public (int row, int col) CurrentPos { get; set; }
-    public Church(char charId, (int row, int col) currentPos) : base(charId)
+namespace Fantasy1998.models.structures;
+public class Church : IGameObjects 
+{
+    public string Name { get; set; }
+    public (int Row, int Col) Pos { get; set; }
+    public Church(string name, (int row, int col) pos)
     {
-        CurrentPos = currentPos;
+        Name = name;
+        Pos = pos;
     }
     public override bool Equals(object? obj)
     {
@@ -11,14 +15,14 @@ public class Church : Structure, IObjGame {
             return false;
         }
         Church other = (Church)obj;
-        return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
+        return Pos.Row == other.Pos.Row && Pos.Col == other.Pos.Col;
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(CurrentPos.row, CurrentPos.col);
+        return HashCode.Combine(Pos.Row, Pos.Col);
     }
-    public string TurnLetter()
+    public char TurnLetter()
     {
-        return CharId.ToString();
+        return Name[0];
     }
 }

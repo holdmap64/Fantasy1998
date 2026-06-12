@@ -1,15 +1,32 @@
-public abstract class InputService
+namespace Fantasy1998.services;
+public class InputService
 {
-    protected ConsoleKey StoreKey { get; set; }
-    protected Player Player { get; set; }
-    protected bool GameLoop { get; set; } 
-    public InputService(Player player)
+    private bool _gameLoop   { get; set; }
+    private GameState _state { get; set; }
+    public InputService()
     {
-        Player = player;
-        GameLoop = true;
+        _state = GameState.Exploration; 
+        _gameLoop = true;
     }
-    public abstract void GameState(string nameMap);
-    public ConsoleKey Input()
+    public void PlayerActions()
+    {
+        while(_gameLoop)
+        {
+            switch(_state)
+            {
+                case GameState.Exploration:
+                    break;
+                case GameState.Combat:
+                    break;
+                case GameState.Management:
+                    break;
+                case GameState.Exit:
+                    _gameLoop = false;
+                    break;
+            }
+        }
+    }
+    private ConsoleKey _returnInputKeyboard()
     {
         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
         return keyInfo.Key;
