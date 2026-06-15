@@ -1,8 +1,11 @@
-public class Allies : Character, IObjGame {
-    public (int row, int col) CurrentPos { get; set; }
-    public Allies(char charId, (int row, int col) currentPos) : base(charId)
+namespace Fantasy1998.models.characters;
+public class Allies : IGameObjects {
+    public string Name { get; set; }
+    public (int Row, int Col) Pos { get; set; }
+    public Allies(string name, (int row, int col) pos)
     {
-        CurrentPos = currentPos;
+        Name = name;
+        Pos = pos;
     }
     public override bool Equals(object? obj)
     {
@@ -11,14 +14,14 @@ public class Allies : Character, IObjGame {
             return false;
         }
         Allies other = (Allies)obj;
-        return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
+        return Pos.Row == other.Pos.Row && Pos.Col == other.Pos.Col;
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(CurrentPos.row, CurrentPos.col);
+        return HashCode.Combine(Pos.Row, Pos.Col);
     }
-    public string TurnLetter()
+    public char TurnLetter()
     {
-        return CharId.ToString();
+        return Name[0];
     }
 }

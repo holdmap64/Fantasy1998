@@ -1,41 +1,21 @@
+using Fantasy1998.world.error;
+
+namespace Fantasy1998.world;
 public class World
 {
-    public IObjGame?[,] Grid { get; set; }
-    public HashSet<IObjGame> ObjGame { get; set; } = new();
-    public World(Player player, int rows, int cols)
+    public IGameObjects[,] Size       { get; set; }
+    public HashSet<IGameObjects> Objs { get; set; } = new();
+    private CheckIf _checkIf;
+    public World(int rows, int cols)
     {
-        Grid = new IObjGame[rows, cols];
-        AddObject(player);
+        Size = new IGameObjects[rows, cols];
+        _checkIf = new CheckIf(Size);
     }
-    public void AddObject(IObjGame obj)
+    public void AddObject(IGameObjects obj)
     {
-        WorldException.ThrowExceptionOffMap(obj, Grid);
-        WorldException.ThrowExceptionOccupiedBill(obj, Grid);
-        ObjGame.Add(obj);
-        Grid[obj.CurrentPos.row, obj.CurrentPos.col] = obj;
-    }
-    public void RenderMap()
-    {
-        Console.Clear();
-        Console.Write(" ");
-        for (int i = 0; i < Grid.GetLength(1); i++)
-        {
-            Console.Write(" " + (char)(65 + i));
-        }
-        Console.WriteLine();
-        for (int row = 0; row < Grid.GetLength(0); row++)
-        {
-            for (int col = 0; col < Grid.GetLength(1); col++)
-            {
-                if (col == 0)
-                    Console.Write(row);
-
-                if (Grid[row, col] != null)
-                    Paint.PaintText(" " + Grid[row, col].TurnLetter(), ConsoleColor.Yellow);
-                else
-                    Console.Write(" -");
-            }
-            Console.WriteLine();
-        }
+        _checkIf.OccupiedPosition(obj, () => throw new WorldException("Posição ocupada!!!"), null);
+        _checkIf.OffTeGrid(obj, () => throw new WorldException("Posição fora do mapa!!!"),   null);
+        Objs.Add(obj);
+        Size[obj.Pos.Row, obj.Pos.Col] = obj;
     }
 }

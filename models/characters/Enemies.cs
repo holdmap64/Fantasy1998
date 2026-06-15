@@ -1,8 +1,10 @@
-public class Enemies : Character, IObjGame {
-    public (int row, int col) CurrentPos { get; set; }
-    public Enemies(char charId, (int row, int col) currentPos) : base(charId)
+public class Enemies : IGameObjects {
+    public string Name { get; set; }
+    public (int Row, int Col) Pos { get; set; }
+    public Enemies(string name, (int row, int col) pos)
     {
-        CurrentPos = currentPos;
+        Name = name;
+        Pos = pos;
     }
     public override bool Equals(object? obj)
     {
@@ -11,14 +13,14 @@ public class Enemies : Character, IObjGame {
             return false;
         }
         Enemies other = (Enemies)obj;
-        return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
+        return Pos.Row == other.Pos.Row && Pos.Col == other.Pos.Col;
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(CurrentPos.row, CurrentPos.col);
+        return HashCode.Combine(Pos.Row, Pos.Col);
     }
-    public string TurnLetter()
+    public char TurnLetter()
     {
-        return CharId.ToString();
+        return Name[0];
     }
 }
