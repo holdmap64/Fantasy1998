@@ -1,10 +1,12 @@
-public class Enemies : IGameObjects {
-    public string Name { get; set; }
-    public (int Row, int Col) Pos { get; set; }
-    public Enemies(string name, (int row, int col) pos)
+using Fantasy1998.models;
+
+public class Enemies : IGameObject {
+    public string name { get; set; }
+    public (int row, int col) current_pos { get; set; }
+    public Enemies(string name, (int row, int col) current_pos)
     {
-        Name = name;
-        Pos = pos;
+        this.name = name;
+        this.current_pos = current_pos;
     }
     public override bool Equals(object? obj)
     {
@@ -13,14 +15,14 @@ public class Enemies : IGameObjects {
             return false;
         }
         Enemies other = (Enemies)obj;
-        return Pos.Row == other.Pos.Row && Pos.Col == other.Pos.Col;
+        return current_pos.row == other.current_pos.row && current_pos.col == other.current_pos.col;
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(Pos.Row, Pos.Col);
+        return HashCode.Combine(current_pos.row, current_pos.col);
     }
-    public char TurnLetter()
+    public char turn_letter()
     {
-        return Name[0];
+        return name[0];
     }
 }

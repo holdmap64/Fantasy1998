@@ -4,24 +4,24 @@ using Fantasy1998.world;
 namespace Fantasy1998;
 public class Screen
 {
-    public static void Show(WorldsManager maps, string nameMap)
+    public static void render_map(World maps)
     {
         Console.Clear();
         Console.Write(" ");
-        for (int i = 0; i < maps.GetExistingMap(nameMap).Size.GetLength(1); i++)
+        for (int i = 0; i < maps.grid.GetLength(1); i++)
         {
             Console.Write(" " + (char)(65 + i));
         }
         Console.WriteLine();
-        for (int row = 0; row < maps.GetExistingMap(nameMap).Size.GetLength(0); row++)
+        for (int row = 0; row < maps.grid.GetLength(0); row++)
         {
-            for (int col = 0; col < maps.GetExistingMap(nameMap).Size.GetLength(1); col++)
+            for (int col = 0; col < maps.grid.GetLength(1); col++)
             {
                 if (col == 0)
                     Console.Write(row);
 
-                if (maps.GetExistingMap(nameMap).Size[row, col] != null)
-                    Paint.PaintText(" " + maps.GetExistingMap(nameMap).Size[row, col].TurnLetter(), ConsoleColor.Yellow);
+                if (maps.grid[row, col] != null)
+                    Paint.PaintText(" " + maps.grid[row, col]?.turn_letter(), ConsoleColor.Yellow);
                 else
                     Console.Write(" -");
             }

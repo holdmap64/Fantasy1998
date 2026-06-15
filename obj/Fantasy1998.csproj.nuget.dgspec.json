@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\337888\\Documents\\DotNetProjects\\Fantasy1998\\Fantasy1998.csproj": {}
+    "/home/zelad0rNET8/DotNetProjects/Fantasy1998/Fantasy1998.csproj": {}
   },
   "projects": {
-    "C:\\Users\\337888\\Documents\\DotNetProjects\\Fantasy1998\\Fantasy1998.csproj": {
+    "/home/zelad0rNET8/DotNetProjects/Fantasy1998/Fantasy1998.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\337888\\Documents\\DotNetProjects\\Fantasy1998\\Fantasy1998.csproj",
+        "projectUniqueName": "/home/zelad0rNET8/DotNetProjects/Fantasy1998/Fantasy1998.csproj",
         "projectName": "Fantasy1998",
-        "projectPath": "C:\\Users\\337888\\Documents\\DotNetProjects\\Fantasy1998\\Fantasy1998.csproj",
-        "packagesPath": "C:\\Users\\337888\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\337888\\Documents\\DotNetProjects\\Fantasy1998\\obj\\",
+        "projectPath": "/home/zelad0rNET8/DotNetProjects/Fantasy1998/Fantasy1998.csproj",
+        "packagesPath": "/home/zelad0rNET8/.nuget/packages/",
+        "outputPath": "/home/zelad0rNET8/DotNetProjects/Fantasy1998/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\337888\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/zelad0rNET8/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -24,6 +24,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -38,10 +39,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -59,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
