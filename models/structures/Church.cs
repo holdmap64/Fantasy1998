@@ -1,12 +1,9 @@
 namespace Fantasy1998.models.structures;
-public class Church : IGameObject
+public class Church : GameObject
 {
-    public string name { get; set; }
-    public (int row, int col) current_pos { get; set; }
-    public Church(string name, (int row, int col) current_pos)
+    public Church(string name, (int row, int col) current_pos) : base(name, current_pos)
     {
-        this.name = name;
-        this.current_pos = current_pos;
+
     }
     public override bool Equals(object? obj)
     {
@@ -21,7 +18,7 @@ public class Church : IGameObject
     {
         return HashCode.Combine(current_pos.row, current_pos.col);
     }
-    public char turn_letter()
+    public override char turn_letter()
     {
         return name[0];
     }

@@ -1,3 +1,4 @@
+using ConsoleEditor.Tools;
 using Fantasy1998.models;
 using Fantasy1998.models.characters;
 using Fantasy1998.models.player;
@@ -10,34 +11,30 @@ public class ShippingService
 {
     public World map                { get; private set; }
     public Player player            { get; private set; }
-    private GameState _state        { get; set; }
     public ShippingService(string name_map)
     {
         map = WorldsManager.get_map(name_map);
         player = WorldsManager.get_player(name_map);
-        _state = GameState.Exploration;
     }
-    public GameState movement_keys(ConsoleKey k)
+    public void movement_keys(ConsoleKey k)
     {
         switch(k)
         {
             case ConsoleKey.UpArrow:
                 _walking_rendering(_change_position(-1, 0));
-                return _state;
+                break;
             case ConsoleKey.DownArrow:
                 _walking_rendering(_change_position(1, 0));
-                return _state;
+                break;
             case ConsoleKey.RightArrow:
                 _walking_rendering(_change_position(0, 1));
-                return _state;
+                break;
             case ConsoleKey.LeftArrow:
                 _walking_rendering(_change_position(0, -1));
-                return _state;
+                break;
             case ConsoleKey.Escape:
-                _state = GameState.Exit; 
-                return _state;
-            default:
-                return _state;
+                GameLoop.state = GameState.Exit; 
+                break;
         }
     }
     private void _walking_rendering((int row, int col) next_pos)
@@ -67,27 +64,37 @@ public class ShippingService
     }
     private (int Row, int Col) _resolve_interaction((int Row, int Col) targetPos)
     {
+        OptionsMenu opt1 = new OptionsMenu(">", "Sim", "Não");
         if(map.grid[targetPos.Row, targetPos.Col] != null)
         {
-            IGameObject gameObject = map.grid[targetPos.Row, targetPos.Col];
+            GameObject? gameObject = map.grid[targetPos.Row, targetPos.Col];
             switch(gameObject)
             {
                 case Allies:
-                    Console.WriteLine("Você encontrou o(a) " + gameObject.name);
-                    Console.ReadKey(true);
+                    _options("Deseja fazer ele ser parte do time?");
                     return player.current_pos;
                 case Enemies:
-                    Console.WriteLine("Você encontrou o(a) " + gameObject.name);
-                    Console.ReadKey(true);
+                    _options("Deseja lutar com ele?");
                     return player.current_pos;
                 case Church:
-                    Console.WriteLine("Você encontrou o(a) " + gameObject.name);
-                    Console.ReadKey(true);
+                    _options("Deseja restaurar a vida e energia?");
                     return player.current_pos;
-                default:
-                    return targetPos;
             }
         }
         return targetPos;
+    }
+    private string _options(string message)
+    {
+        OptionsMenu opt1 = new OptionsMenu(">", "Sim", "Não");
+        while(true)
+        {
+            if(opt1.start(message, map) == "Sim")
+            {
+                return "Sim";
+            } else
+            {
+                return "Não";
+            }
+        }
     }
 }

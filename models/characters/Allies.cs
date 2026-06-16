@@ -1,11 +1,8 @@
 namespace Fantasy1998.models.characters;
-public class Allies : IGameObject {
-    public string name { get; set; }
-    public (int row, int col) current_pos { get; set; }
-    public Allies(string name, (int row, int col) current_pos)
+public class Allies : GameObject {
+    public Allies(string name, (int row, int col) current_pos) : base(name, current_pos)
     {
-        this.name = name;
-        this.current_pos = current_pos;
+
     }
     public override bool Equals(object? obj)
     {
@@ -20,7 +17,7 @@ public class Allies : IGameObject {
     {
         return HashCode.Combine(current_pos.row, current_pos.col);
     }
-    public char turn_letter()
+    public override char turn_letter()
     {
         return name[0];
     }

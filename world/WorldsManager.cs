@@ -1,3 +1,4 @@
+using Fantasy1998.models;
 using Fantasy1998.models.player;
 using Fantasy1998.world.error;
 
@@ -13,12 +14,12 @@ public static class WorldsManager
     {
         _maps.Remove(name_map);
     }
-    public static List<T> GetObjects<T>(string name_map)
+    public static List<T> get_object<T>(string name_map) where T : GameObject
     {
         List<T> list = new();
         foreach(var obj in get_map(name_map).game_objects)
         {
-            if(obj is T && obj != null)
+            if(obj is T)
             {
                 list.Add((T)obj);
             }
@@ -27,7 +28,7 @@ public static class WorldsManager
     }
     public static Player get_player(string name_map)
     {
-        List<Player> players = GetObjects<Player>(name_map);
+        List<Player> players = get_object<Player>(name_map);
         if(players.Count > 1)
         {
             throw new WorldException("Não pode existir + de um player no mapa.");

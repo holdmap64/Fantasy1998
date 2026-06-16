@@ -1,3 +1,4 @@
+using System.Text;
 using Fantasy1998.models.player;
 using Fantasy1998.world;
 
@@ -21,7 +22,7 @@ public class Screen
                     Console.Write(row);
 
                 if (maps.grid[row, col] != null)
-                    Paint.PaintText(" " + maps.grid[row, col]?.turn_letter(), ConsoleColor.Yellow);
+                    Console.Write(" " + maps.grid[row, col]?.turn_letter());
                 else
                     Console.Write(" -");
             }

@@ -11,17 +11,21 @@ public class Program {
     {
         try
         {   
-            Player player = new Player("Player1", (0, 0)); // Player(string name, (int Row, int Col) pos)
-            // Adicionar um World.cs(classe):
-            WorldsManager.add_map(new World("Vila Pelicanos", 10, 20)); // WorldsManager.AddMap(World makeMap)
+
+            // Adicionar um objeto do tipo World no dicionário estático _maps:
+            // Mas por que fiz isso?
+            // O estático vai ser util pois a obtenção de uma propriedade é imediatada pois a a propriedade faz parte da classe
+            // não do objeto. E também, WorldManager é um gerenciador de vários mapas com métodos feito para modificar, obter,
+            // remover e buscar.
+            WorldsManager.add_map(new World("Vila Pelicanos", 10, 20));
             // Adicionar IGameObjects:
-            WorldsManager.get_map("Vila Pelicanos").add_object(player);
+            WorldsManager.get_map("Vila Pelicanos").add_object(new Player("João", (0, 0)));
             WorldsManager.get_map("Vila Pelicanos").add_object(new Allies("José", (0, 10)));
             WorldsManager.get_map("Vila Pelicanos").add_object(new Enemies("Goblin", (4, 5)));
             WorldsManager.get_map("Vila Pelicanos").add_object(new Church("Igreja Católica", (1, 11)));
             WorldsManager.get_map("Vila Pelicanos").mapping();
-            // -------------------------------------------------------------------------------------------------------------
-            PlayerService playerService = new PlayerService("Vila Pelicanos");
+            // -----------------------------------------------------------------------------------------------------------------
+            Game game = new Game("Vila Pelicanos");
         } catch(WorldException ex)
         {
             Console.WriteLine(ex.Message);

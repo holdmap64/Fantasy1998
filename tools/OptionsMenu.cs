@@ -1,38 +1,44 @@
 ﻿using ConsoleEditor.Tools.Errors;
+using Fantasy1998;
+using Fantasy1998.world;
+
 namespace ConsoleEditor.Tools;
+
 public class OptionsMenu
 {
-    // Estado de seleção de cada opção (true = selecionado, false = não, null = indefinido)
+    // Estado de seleção de cada opção
     public bool[] selection_states { get; set; }
-    // Texto exibido ao lado da marcação (ex: "Opção 1", "Configuração A")
+
+    // Texto exibido para cada opção
     public string[] option_display_texts { get; set; }
-    // Representação completa da opção (ex: "[x] Opção 1")
+
+    // Opções formatadas para exibição
     public string[] formatted_options { get; set; }
-    // Texto que representa visualmente uma opção selecionada (ex: "[x]" ou ">")
+
+    // Marcador visual da opção selecionada
     private string _selected_option_marker { get; set; }
-    // Indice atual selecionado
+
+    // Índice atualmente selecionado
     private int _selected_index = 0;
+
     public OptionsMenu(string customSelectionMarker, params string[] optionDisplayTexts)
     {
-        // Guardar textos
         option_display_texts = optionDisplayTexts;
 
-        // Inicializar tamanho dos arrays
         selection_states = new bool[option_display_texts.Length];
-        formatted_options = new string[optionDisplayTexts.Length];
+        formatted_options = new string[option_display_texts.Length];
 
-        // Definir marcador (ex: " > ")
         _selected_option_marker = " " + customSelectionMarker + " ";
 
-            // se indice atual for menor que 0 e maior que tamanho permitido, Error!
-            // se não indice atual vai está estado de seleção
-        if (_selected_index >= 0 && _selected_index < selection_states.Length) { 
-            selection_states[_selected_index] = true;
-        } else
+        if (_selected_index >= 0 && _selected_index < selection_states.Length)
         {
-            throw new Exception("Error!!!");
+            selection_states[_selected_index] = true;
         }
-        // Montar opções formatadas
+        else
+        {
+            throw new Exception("Índice inicial inválido.");
+        }
+
         for (int i = 0; i < option_display_texts.Length; i++)
         {
             string marker = selection_states[i]
@@ -42,14 +48,21 @@ public class OptionsMenu
             formatted_options[i] = marker + option_display_texts[i];
         }
     }
-    public void Start()
+
+    // Retorna o texto da opção escolhida
+    public string start(string message, World map)
     {
         bool isRunning = true;
+
         while (isRunning)
         {
+            Screen.render_map(map);
+            Console.WriteLine(message);
             _render_menu();
-            ConsoleKeyInfo input = Console.ReadKey();
-            switch (input.Key) {
+
+            ConsoleKeyInfo input = Console.ReadKey(true);
+            switch (input.Key)
+            {
                 case ConsoleKey.UpArrow:
                     _up_select();
                     break;
@@ -57,58 +70,52 @@ public class OptionsMenu
                     _down_select();
                     break;
                 case ConsoleKey.Enter:
-                    _enter_select();
                     isRunning = false;
                     break;
-                default:
-                    isRunning = false;
-                    continue;
             }
         }
+        return option_display_texts[_selected_index];
     }
-    public void show()
+
+    private void _show()
     {
         foreach (var option in formatted_options)
         {
-            System.Console.WriteLine(option);
+            Console.WriteLine(option);
         }
     }
+
     private void _render_menu()
     {
-        Console.Clear();
         for (int i = 0; i < selection_states.Length; i++)
         {
             string marker = selection_states[i]
                 ? _selected_option_marker
                 : "   ";
-
             formatted_options[i] = marker + option_display_texts[i];
         }
-        show();
+
+        _show();
     }
+
     private void _up_select()
     {
-        if(_selected_index - 1 != -1)
+
+        if (_selected_index > 0)
         {
             selection_states[_selected_index] = false;
-            _selected_index -= 1;
+            _selected_index--;
             selection_states[_selected_index] = true;
-            _render_menu();
         }
     }
+
     private void _down_select()
     {
-        if(!(_selected_index >= selection_states.Length - 1))
+        if (_selected_index < selection_states.Length - 1)
         {
             selection_states[_selected_index] = false;
-            _selected_index += 1;
+            _selected_index++;
             selection_states[_selected_index] = true;
-            _render_menu();
         }
-    }
-    private void _enter_select()
-    {
-        Console.WriteLine();
-        System.Console.WriteLine($"Você selecionou o {option_display_texts[_selected_index]}");
     }
 }

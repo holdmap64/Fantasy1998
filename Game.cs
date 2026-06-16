@@ -4,26 +4,24 @@ using Fantasy1998.world;
 using Fantasy1998.world.error;
 
 namespace Fantasy1998.services;
-public class PlayerService
+public class Game
 {
-    protected bool _state_cycle         { get; set; }
-    protected GameState _type_of_states { get; set; }
-    public PlayerService(string name_map)
+    public Game(string name_map)
     {
-        _state_cycle = true;
-        _type_of_states = GameState.Exploration;
+        GameLoop.cycle = true;
+        GameLoop.state = GameState.Exploration;
         ToPlay(name_map);
     }
-    public void ToPlay(string name_map)
+    private void ToPlay(string name_map)
     {
         ShippingService shipping = new ShippingService(name_map);
-        while(_state_cycle)
+        while(GameLoop.cycle)
         {
-            switch(_type_of_states)
+            switch(GameLoop.state)
             {
                 case GameState.Exploration:
                     Screen.render_map(shipping.map);
-                    _type_of_states = shipping.movement_keys(_input());
+                    shipping.movement_keys(_input());
                     break;
                 case GameState.Combat:
 
@@ -32,7 +30,7 @@ public class PlayerService
 
                     break;
                 case GameState.Exit:
-                    _state_cycle = false;
+                    GameLoop.cycle = false;
                     break;
             }
         }
