@@ -50,16 +50,14 @@ public class OptionsMenu
     }
 
     // Retorna o texto da opção escolhida
-    public string start(string message, World map)
+    public string start()
     {
         bool isRunning = true;
-
         while (isRunning)
         {
-            Screen.render_map(map);
-            Console.WriteLine(message);
+            Console.Clear();
             _render_menu();
-
+            
             ConsoleKeyInfo input = Console.ReadKey(true);
             switch (input.Key)
             {

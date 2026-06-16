@@ -1,18 +1,19 @@
 namespace Fantasy1998.models.structures;
-public class Church : GameObject
+public class House : GameObject
 {
-    // Restaura a vida, mana e stamina...
-    public Church(string name, (int row, int col) current_pos) : base(name, current_pos)
+    // Gerenciar seu time e recursos e você pode ver suas informações e tem mais você pode criar ferramentas, moveis e materiais 
+    // primas que é usada para vender e ganhar dinheiro.
+    public House(string name, (int row, int col) current_pos) : base(name, current_pos)
     {
 
     }
     public override bool Equals(object? obj)
     {
-        if(!(obj is Church))
+        if(!(obj is House))
         {
             return false;
         }
-        Church other = (Church)obj;
+        House other = (House)obj;
         return current_pos.row == other.current_pos.row && current_pos.col == other.current_pos.col;
     }
     public override int GetHashCode()

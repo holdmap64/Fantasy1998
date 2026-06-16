@@ -71,30 +71,16 @@ public class ShippingService
             switch(gameObject)
             {
                 case Allies:
-                    _options("Deseja fazer ele ser parte do time?");
+
                     return player.current_pos;
                 case Enemies:
-                    _options("Deseja lutar com ele?");
+                    
                     return player.current_pos;
                 case Church:
-                    _options("Deseja restaurar a vida e energia?");
+                    
                     return player.current_pos;
             }
         }
         return targetPos;
-    }
-    private string _options(string message)
-    {
-        OptionsMenu opt1 = new OptionsMenu(">", "Sim", "Não");
-        while(true)
-        {
-            if(opt1.start(message, map) == "Sim")
-            {
-                return "Sim";
-            } else
-            {
-                return "Não";
-            }
-        }
     }
 }
