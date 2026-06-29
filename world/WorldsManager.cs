@@ -6,18 +6,18 @@ namespace Fantasy1998.world;
 public static class WorldsManager
 {
     private static Dictionary<string, World> _maps = new();
-    public static void add_map(World make_map)
+    public static void AddMap(World makeMap)
     {
-        _maps.Add(make_map.name, make_map);
+        _maps.Add(makeMap.Name, makeMap);
     }
-    public static void remove_map(string name_map)
+    public static void RemoveMap(string nameMap)
     {
-        _maps.Remove(name_map);
+        _maps.Remove(nameMap);
     }
-    public static List<T> get_object<T>(string name_map) where T : GameObject
+    public static List<T> GetObject<T>(string name_map) where T : GameObject
     {
         List<T> list = new();
-        foreach(var obj in get_map(name_map).game_objects)
+        foreach(var obj in GetMap(name_map).GameObjects)
         {
             if(obj is T)
             {
@@ -26,9 +26,9 @@ public static class WorldsManager
         }
         return list;
     }
-    public static Player get_player(string name_map)
+    public static Player GetPlayer(string nameMap)
     {
-        List<Player> players = get_object<Player>(name_map);
+        List<Player> players = GetObject<Player>(nameMap);
         if(players.Count > 1)
         {
             throw new WorldException("Não pode existir + de um player no mapa.");
@@ -41,9 +41,9 @@ public static class WorldsManager
         }
         return players.First();
     }
-    public static World get_map(string name_map)
+    public static World GetMap(string nameMap)
     {
-        if(_maps.TryGetValue(name_map, out World? map))
+        if(_maps.TryGetValue(nameMap, out World? map))
         {
             return map ?? throw new WorldException("Esse mapa está nulo!");
         }

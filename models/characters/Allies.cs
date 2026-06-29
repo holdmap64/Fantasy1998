@@ -1,6 +1,20 @@
 namespace Fantasy1998.models.characters;
-public class Allies : GameObject {
-    public Allies(string name, (int row, int col) current_pos) : base(name, current_pos)
+public class Allies : GameObject, IAllies {
+    public double Health      { get; set; }
+    public double Stamina     { get; set; }
+    public double Mana        { get; set; }
+    public double MaxHealth   { get; set; }
+    public double MaxStamina  { get; set; }
+    public double MaxMana     { get; set; }
+    public double AP          { get; set; }
+    public double AD          { get; set; }
+    public double Armor       { get; set; }
+    public double MR          { get; set; }
+    public double Speed       { get; set; }
+    public double XP          { get; set; }
+    public double MaxXP       { get; set; }
+    public int Level         { get; set; }
+    public Allies(string name, (int row, int col) currentPos) : base(name, currentPos)
     {
 
     }
@@ -11,14 +25,14 @@ public class Allies : GameObject {
             return false;
         }
         Allies other = (Allies)obj;
-        return current_pos.row == other.current_pos.row && current_pos.col == other.current_pos.col;
+        return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(current_pos.row, current_pos.col);
+        return HashCode.Combine(CurrentPos.row, CurrentPos.col);
     }
-    public override char turn_letter()
+    public override char TurnLetter()
     {
-        return name[0];
+        return Name[0];
     }
 }

@@ -17,13 +17,13 @@ public class Program {
             // O estático vai ser util pois a obtenção de uma propriedade é imediatada pois a a propriedade faz parte da classe
             // não do objeto. E também, WorldManager é um gerenciador de vários mapas com métodos feito para modificar, obter,
             // remover e buscar.
-            WorldsManager.add_map(new World("Vila Pelicanos", 10, 20));
+            WorldsManager.AddMap(new World("Vila Pelicanos", 10, 20));
             // Adicionar IGameObjects:
-            WorldsManager.get_map("Vila Pelicanos").add_object(new Player("João", (0, 0)));
-            WorldsManager.get_map("Vila Pelicanos").add_object(new Allies("José", (0, 10)));
-            WorldsManager.get_map("Vila Pelicanos").add_object(new Enemies("Goblin", (4, 5)));
-            WorldsManager.get_map("Vila Pelicanos").add_object(new Church("Igreja Católica", (1, 11)));
-            WorldsManager.get_map("Vila Pelicanos").mapping();
+            WorldsManager.GetMap("Vila Pelicanos").AddObject(new Player("João", (0, 0)));
+            WorldsManager.GetMap("Vila Pelicanos").AddObject(new Allies("José", (0, 10)));
+            WorldsManager.GetMap("Vila Pelicanos").AddObject(new Enemies("Goblin", (4, 5)));
+            WorldsManager.GetMap("Vila Pelicanos").AddObject(new Church("Igreja Católica", (1, 11)));
+            WorldsManager.GetMap("Vila Pelicanos").Mapping();
             // -----------------------------------------------------------------------------------------------------------------
             Game game = new Game("Vila Pelicanos");
         } catch(WorldException ex)

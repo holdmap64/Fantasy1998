@@ -13,14 +13,14 @@ public class Church : GameObject
             return false;
         }
         Church other = (Church)obj;
-        return current_pos.row == other.current_pos.row && current_pos.col == other.current_pos.col;
+        return CurrentPos.row == other.CurrentPos.row && CurrentPos.col == other.CurrentPos.col;
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(current_pos.row, current_pos.col);
+        return HashCode.Combine(CurrentPos.row, CurrentPos.col);
     }
-    public override char turn_letter()
+    public override char TurnLetter()
     {
-        return name[0];
+        return Name[0];
     }
 }

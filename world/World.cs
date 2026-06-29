@@ -4,38 +4,38 @@ using Fantasy1998.world.error;
 namespace Fantasy1998.world;
 public class World
 {
-    public string name                       { get; set; }
-    public GameObject?[,] grid              { get; set; }
-    public HashSet<GameObject> game_objects { get; set; } = new();
+    public string Name                       { get; set; }
+    public GameObject?[,] Grid              { get; set; }
+    public HashSet<GameObject> GameObjects { get; set; } = new();
     public World(string name, int rows, int cols)
     {
-        this.name = name;
-        grid = new GameObject[rows, cols];
+        Name = name;
+        Grid = new GameObject[rows, cols];
     }
-    public void add_object(GameObject obj)
+    public void AddObject(GameObject obj)
     {
-        _off_the_grid(obj);
-        _position_occupied(obj);
-        game_objects.Add(obj);
+        _offTheGrid(obj);
+        _positionOccupied(obj);
+        GameObjects.Add(obj);
     }
-    public void mapping()
+    public void Mapping()
     {
-        foreach(GameObject obj in game_objects)
+        foreach(GameObject obj in GameObjects)
         {
-            grid[obj.current_pos.row, obj.current_pos.col] = obj;
+            Grid[obj.CurrentPos.row, obj.CurrentPos.col] = obj;
         }
     }
-    private void _off_the_grid(GameObject obj)
+    private void _offTheGrid(GameObject obj)
     {
-        if (obj.current_pos.row >= grid.GetLength(0) || obj.current_pos.row < 0 ||
-            obj.current_pos.col >= grid.GetLength(1) || obj.current_pos.col < 0)
+        if (obj.CurrentPos.row >= Grid.GetLength(0) || obj.CurrentPos.row < 0 ||
+            obj.CurrentPos.col >= Grid.GetLength(1) || obj.CurrentPos.col < 0)
         {
             throw new WorldException("Posição fora do mapa!!!");
         }
     }
-    private void _position_occupied(GameObject obj)
+    private void _positionOccupied(GameObject obj)
     {
-        if (grid[obj.current_pos.row, obj.current_pos.col] != null)
+        if (Grid[obj.CurrentPos.row, obj.CurrentPos.col] != null)
         {
             throw new WorldException("Posição ocupada!!!");
         }

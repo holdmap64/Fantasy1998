@@ -6,38 +6,27 @@ using Fantasy1998.world.error;
 namespace Fantasy1998.services;
 public class Game
 {
-    public Game(string name_map)
+    public GameState State { private get; set; }
+    public Game(string nameMap)
     {
-        GameLoop.cycle = true;
-        GameLoop.state = GameState.Exploration;
-        ToPlay(name_map);
+        State = GameState.Exploration;
+        ToPlay(nameMap);
     }
-    private void ToPlay(string name_map)
+    private void ToPlay(string nameMap)
     {
-        ShippingService shipping = new ShippingService(name_map);
-        while(GameLoop.cycle)
+        ShippingService shipping = new ShippingService(WorldsManager.GetMap(nameMap), 
+        WorldsManager.GetPlayer(nameMap));
+        switch(State)
         {
-            switch(GameLoop.state)
-            {
-                case GameState.Exploration:
-                    Screen.render_map(shipping.map);
-                    shipping.movement_keys(_input());
-                    break;
-                case GameState.Combat:
+            case GameState.Exploration:
+                shipping.MovementKeys();
+                break;
+            case GameState.Combat:
 
-                    break;
-                case GameState.Management:
-
-                    break;
-                case GameState.Exit:
-                    GameLoop.cycle = false;
-                    break;
-            }
+                break;
+            case GameState.Management:
+                
+                break;
         }
-    }
-    private static ConsoleKey _input()
-    {
-        ConsoleKeyInfo data = Console.ReadKey(true);
-        return data.Key;
     }
 }
